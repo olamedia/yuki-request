@@ -19,6 +19,33 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
 class yRequest{
-    
+    protected static $_requestData = null;
+    public static function fromEnvironment(){
+        self::$_requestData = null;
+        if (self::isHttp()){
+            self::$_requestData = yHttpRequestData::fromEnvironment();
+        }elseif (self::isCli()){
+            self::$_requestData = yCliRequestData::fromEnvironment();
+        }
+    }
+    public static function setData($requestData){
+        self::$_requestData = $requestData;
+    }
+    public static function getData(){
+        return self::$_requestData;
+    }
+    public static function isHttp(){
+        if (self::$_requestData !== null){
+            return self::$_requestData instanceof yHttpRequestData;
+        }
+    }
+    public static function isCli(){
+        
+    }
+    public static function getMethod(){
+        if (self::isHttp()){
+            
+        }
+    }
 }
 
